@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Portal - Complete Demo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .demo-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .nav-pills .nav-link {
+            border-radius: 10px;
+            margin: 5px;
+        }
+        .nav-pills .nav-link.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .job-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+            background: white;
+        }
+        .job-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        .badge-custom {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            opacity: 0.9;
+            color: white;
+        }
+        .search-box {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .stats-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <div class="card">
+            <div class="card-header bg-white">
+                <h1 class="text-center mb-0">
+                    <span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        Job Portal Demo
+                    </span>
+                </h1>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-pills nav-fill mb-4" id="viewTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="home-tab" data-bs-toggle="pill" data-bs-target="#home" type="button">Home</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="register-tab" data-bs-toggle="pill" data-bs-target="#register" type="button">Register</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="jobseeker-tab" data-bs-toggle="pill" data-bs-target="#jobseeker" type="button">Job Seeker</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="employer-tab" data-bs-toggle="pill" data-bs-target="#employer" type="button">Employer</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="admin-tab" data-bs-toggle="pill" data-bs-target="#admin" type="button">Admin</button>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="viewTabsContent">
+                    <!-- Home Tab -->
+                    <div class="tab-pane fade show active" id="home">
+                        <div class="text-center py-5">
+                            <h2>Welcome to Job Portal</h2>
+                            <p class="lead">Connect job seekers with employers seamlessly</p>
+                            <div class="row mt-5">
+                                <div class="col-md-4">
+                                    <div class="stats-card mb-3">
+                                        <h3>500+</h3>
+                                        <p>Active Jobs</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stats-card mb-3">
+                                        <h3>1000+</h3>
+                                        <p>Job Seekers</p>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stats-card mb-3">
+                                        <h3>200+</h3>
+                                        <p>Companies</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4">
+                                <button class="btn btn-gradient btn-lg me-2" onclick="showTab('register-tab')">Get Started</button>
+                                <button class="btn btn-outline-secondary btn-lg">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Register Tab -->
+                    <div class="tab-pane fade" id="register">
+                        <div class="row justify-content-center">
+                            <div class="col-md-6">
+                                <h3 class="mb-4">Create Account</h3>
+                                <form id="registerForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Username</label>
+                                        <input type="text" class="form-control" id="regUsername" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="regEmail" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="regPassword" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Register as</label>
+                                        <select class="form-select" id="regRole" required>
+                                            <option value="">Select Role</option>
+                                            <option value="job_seeker">Job Seeker</option>
+                                            <option value="employer">Employer</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-gradient w-100">Register</button>
+                                </form>
+                                <div class="mt-3 text-center">
+                                    <small>Already have an account? <a href="#" onclick="simulateLogin()">Login here</a></small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Job Seeker Tab -->
+                    <div class="tab-pane fade" id="jobseeker">
+                        <h3 class="mb-4">Job Seeker Dashboard</h3>
+                        
+                        <div class="search-box mb-4">
+                            <h5 class="mb-3">Search Jobs</h5>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" id="searchLocation" placeholder="Location">
+                                </div>
+                                <div class="col-md-3">
+                                    <select class="form-select" id="searchCategory">
+                                        <option value="">All Categories</option>
+                                        <option value="IT">IT</option>
+                                        <option value="Healthcare">Healthcare</option>
+                                        <option value="Finance">Finance</option>
+                                        <option value="Marketing">Marketing</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3">
+                                    <input type="text" class="form-control" id="searchCompany" placeholder="Company">
+                                </div>
+                                <div class="col-md-2">
+                                    <button class="btn btn-gradient w-100" onclick="searchJobs()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="jobListings"></div>
+                    </div>
+
+                    <!-- Employer Tab -->
+                    <div class="tab-pane fade" id="employer">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3>Employer Dashboard</h3>
+                            <button class="btn btn-gradient" data-bs-toggle="modal" data-bs-target="#postJobModal">
+                                Post New Job
+                            </button>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <h2 id="employerJobCount">5</h2>
+                                        <p>Active Jobs</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <h2 id="employerAppCount">23</h2>
+                                        <p>Total Applications</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body text-center">
+                                        <h2>15</h2>
+                                        <p>Views This Week</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h5 class="mt-4 mb-3">Your Job Listings</h5>
+                        <div id="employerJobs"></div>
+                    </div>
+
+                    <!-- Admin Tab -->
+                    <div class="tab-pane fade" id="admin">
+                        <h3 class="mb-4">Admin Dashboard</h3>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <h3 id="adminTotalUsers">125</h3>
+                                    <p>Total Users</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <h3 id="adminJobSeekers">80</h3>
+                                    <p>Job Seekers</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <h3 id="adminEmployers">40</h3>
+                                    <p>Employers</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="stats-card">
+                                    <h3 id="adminTotalJobs">45</h3>
+                                    <p>Total Jobs</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="nav nav-tabs mb-3" id="adminTabs">
+                            <li class="nav-item">
+                                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#adminUsers">Manage Users</button>
+                            </li>
+                            <li class="nav-item">
+                                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#adminJobs">Manage Jobs</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="adminUsers">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Registered</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="adminUsersList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="adminJobs">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Job Title</th>
+                                                <th>Company</th>
+                                                <th>Location</th>
+                                                <th>Posted By</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="adminJobsList"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Job Modal -->
+    <div class="modal fade" id="postJobModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Post New Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="postJobForm">
+                        <div class="mb-3">
+                            <label class="form-label">Job Title</label>
+                            <input type="text" class="form-control" id="jobTitle" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="jobDescription" rows="4" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Salary</label>
+                                <input type="text" class="form-control" id="jobSalary" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" id="jobLocation" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Category</label>
+                                <select class="form-select" id="jobCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="IT">IT</option>
+                                    <option value="Healthcare">Healthcare</option>
+                                    <option value="Finance">Finance</option>
+                                    <option value="Marketing">Marketing</option>
+                                    <option value="Sales">Sales</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Company</label>
+                                <input type="text" class="form-control" id="jobCompany" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-gradient">Post Job</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Applications Modal -->
+    <div class="modal fade" id="applicationsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applicationsModalTitle">Applications</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="applicationsList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Sample data storage
+        let jobs = [
+            {
+                id: 1,
+                title: "Senior Software Engineer",
+                description: "We are looking for an experienced software engineer to join our team. You will work on building scalable web applications.",
+                salary: "$100,000 - $150,000",
+                location: "San Francisco, CA",
+                category: "IT",
+                company: "Tech Corp",
+                employer: "employer1",
+                applications: [
+                    { id: 1, applicant: "John Doe", email: "john@example.com", appliedDate: "2025-10-15" },
+                    { id: 2, applicant: "Jane Smith", email: "jane@example.com", appliedDate: "2025-10-18" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Marketing Manager",
+                description: "Lead our marketing team and develop strategies to increase brand awareness and customer engagement.",
+                salary: "$80,000 - $100,000",
+                location: "New York, NY",
+                category: "Marketing",
+                company: "Brand Solutions",
+                employer: "employer2",
+                applications: [
+                    { id: 3, applicant: "Mike Johnson", email: "mike@example.com", appliedDate: "2025-10-20" }
+                ]
+            },
+            {
+                id: 3,
+                title: "Data Analyst",
+                description: "Analyze complex data sets and provide insights to drive business decisions.",
+                salary: "$70,000 - $90,000",
+                location: "Chicago, IL",
+                category: "IT",
+                company: "Data Insights Inc",
+                employer: "employer1",
+                applications: []
+            },
+            {
+                id: 4,
+                title: "Registered Nurse",
+                description: "Provide quality patient care in our state-of-the-art medical facility.",
+                salary: "$65,000 - $85,000",
+                location: "Boston, MA",
+                category: "Healthcare",
+                company: "City Hospital",
+                employer: "employer3",
+                applications: [
+                    { id: 4, applicant: "Sarah Williams", email: "sarah@example.com", appliedDate: "2025-10-22" },
+                    { id: 5, applicant: "Tom Brown", email: "tom@example.com", appliedDate: "2025-10-23" }
+                ]
+            },
+            {
+                id: 5,
+                title: "Financial Advisor",
+                description: "Help clients make informed financial decisions and manage their investments.",
+                salary: "$75,000 - $95,000",
+                location: "Los Angeles, CA",
+                category: "Finance",
+                company: "Wealth Management Co",
+                employer: "employer2",
+                applications: []
+            }
+        ];
+
+        let users = [
+            { id: 1, username: "john_seeker", email: "john@example.com", role: "job_seeker", registered: "2025-09-15" },
+            { id: 2, username: "jane_seeker", email: "jane@example.com", role: "job_seeker", registered: "2025-09-20" },
+            { id: 3, username: "employer1", email: "emp1@example.com", role: "employer", registered: "2025-09-10" },
+            { id: 4, username: "employer2", email: "emp2@example.com", role: "employer", registered: "2025-09-12" },
+            { id: 5, username: "admin_user", email: "admin@example.com", role: "admin", registered: "2025-09-01" }
+        ];
+
+        let appliedJobs = new Set();
+
+        // Initialize page
+        function init() {
+            displayJobs(jobs);
+            displayEmployerJobs();
+            displayAdminUsers();
+            displayAdminJobs();
+        }
+
+        function showTab(tabId) {
+            document.getElementById(tabId).click();
+        }
+
+        // Register form
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const email = document.getElementById('regEmail').value;
+            const role = document.getElementById('regRole').value;
+            
+            alert(`Registration successful!\nUsername: ${username}\nRole: ${role}\n\nYou can now explore the ${role === 'job_seeker' ? 'Job Seeker' : 'Employer'} dashboard.`);
+            
+            this.reset();
+            
+            if (role === 'job_seeker') {
+                showTab('jobseeker-tab');
+            } else {
+                showTab('employer-tab');
+            }
+        });
+
+        // Display jobs for job seekers
+        function displayJobs(jobList) {
+            const container = document.getElementById('jobListings');
+            
+            if (jobList.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">No jobs found matching your criteria.</div>';
+                return;
+            }
+            
+            container.innerHTML = jobList.map(job => `
+                <div class="job-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-2">${job.title}</h5>
+                            <p class="text-muted mb-2">${job.company}</p>
+                            <p class="mb-3">${job.description}</p>
+                            <div class="d-flex flex-wrap gap-2 mb-2">
+                                <span class="badge bg-primary badge-custom">${job.location}</span>
+                                <span class="badge bg-success badge-custom">${job.category}</span>
+                                <span class="badge bg-info badge-custom">${job.salary}</span>
+                            </div>
+                        </div>
+                        <div>
+                            ${appliedJobs.has(job.id) 
+                                ? '<button class="btn btn-secondary" disabled>Applied</button>'
+                                : `<button class="btn btn-gradient" onclick="applyJob(${job.id})">Apply Now</button>`
+                            }
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Search jobs
+        function searchJobs() {
+            const location = document.getElementById('searchLocation').value.toLowerCase();
+            const category = document.getElementById('searchCategory').value.toLowerCase();
+            const company = document.getElementById('searchCompany').value.toLowerCase();
+            
+            const filtered = jobs.filter(job => {
+                const matchLocation = !location || job.location.toLowerCase().includes(location);
+                const matchCategory = !category || job.category.toLowerCase() === category;
+                const matchCompany = !company || job.company.toLowerCase().includes(company);
+                return matchLocation && matchCategory && matchCompany;
+            });
+            
+            displayJobs(filtered);
+        }
+
+        // Apply for job
+        function applyJob(jobId) {
+            appliedJobs.add(jobId);
+            displayJobs(jobs);
+            
+            const job = jobs.find(j => j.id === jobId);
+            alert(`Successfully applied for: ${job.title}\n\nThe employer will review your application and contact you soon.`);
+        }
+
+        // Post job form
+        document.getElementById('postJobForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const newJob = {
+                id: jobs.length + 1,
+                title: document.getElementById('jobTitle').value,
+                description: document.getElementById('jobDescription').value,
+                salary: document.getElementById('jobSalary').value,
+                location: document.getElementById('jobLocation').value,
+                category: document.getElementById('jobCategory').value,
+                company: document.getElementById('jobCompany').value,
+                employer: "current_employer",
+                applications: []
+            };
+            
+            jobs.unshift(newJob);
+            displayEmployerJobs();
+            displayAdminJobs();
+            
+            this.reset();
+            bootstrap.Modal.getInstance(document.getElementById('postJobModal')).hide();
+            
+            alert('Job posted successfully!');
+        });
+
+        // Display employer jobs
+        function displayEmployerJobs() {
+            const container = document.getElementById('employerJobs');
+            const employerJobs = jobs.slice(0, 5);
+            
+            container.innerHTML = employerJobs.map(job => `
+                <div class="job-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-2">${job.title}</h5>
+                            <p class="text-muted mb-2">${job.company} • ${job.location}</p>
+                            <p class="mb-2">${job.description.substring(0, 100)}...</p>
+                            <span class="badge bg-info">${job.applications.length} Applications</span>
+                        </div>
+                        <div class="d-flex flex-column gap-2">
+                            <button class="btn btn-sm btn-primary" onclick="viewApplications(${job.id})">
+                                View Applications
+                            </button>
+                            <button class="btn btn-sm btn-warning" onclick="editJob(${job.id})">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteJob(${job.id})">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.getElementById('employerJobCount').textContent = employerJobs.length;
+            const totalApps = employerJobs.reduce((sum, job) => sum + job.applications.length, 0);
+            document.getElementById('employerAppCount').textContent = totalApps;
+        }
+
+        // View applications
+        function viewApplications(jobId) {
+            const job = jobs.find(j => j.id === jobId);
+            const modal = new bootstrap.Modal(document.getElementById('applicationsModal'));
+            
+            document.getElementById('applicationsModalTitle').textContent = `Applications for: ${job.title}`;
+            
+            const container = document.getElementById('applicationsList');
+            
+            if (job.applications.length === 0) {
+                container.innerHTML = '<div class="alert alert-info">No applications received yet.</div>';
+            } else {
+                container.innerHTML = `
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Applicant</th>
+                                    <th>Email</th>
+                                    <th>Applied Date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${job.applications.map(app => `
+                                    <tr>
+                                        <td>${app.applicant}</td>
+                                        <td>${app.email}</td>
+                                        <td>${app.appliedDate}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success">Accept</button>
+                                            <button class="btn btn-sm btn-danger">Reject</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+            
+            modal.show();
+        }
+
+        // Edit job
+        function editJob(jobId) {
+            const job = jobs.find(j => j.id === jobId);
+            alert(`Edit functionality for: ${job.title}\n\nThis would open an edit form with the current job details.`);
+        }
+
+        // Delete job
+        function deleteJob(jobId) {
+            if (confirm('Are you sure you want to delete this job posting?')) {
+                const index = jobs.findIndex(j => j.id === jobId);
+                jobs.splice(index, 1);
+                displayEmployerJobs();
+                displayAdminJobs();
+                alert('Job deleted successfully!');
+            }
+        }
+
+        // Display admin users
+        function displayAdminUsers() {
+            const container = document.getElementById('adminUsersList');
+            container.innerHTML = users.map(user => `
+                <tr>
+                    <td>${user.username}</td>
+                    <td>${user.email}</td>
+                    <td><span class="badge bg-secondary">${user.role}</span></td>
+                    <td>${user.registered}</td>
+                    <td>
+                        ${user.role !== 'admin' 
+                            ? `<button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">Delete</button>`
+                            : '<span class="text-muted">Protected</span>'
+                        }
+                    </td>
+                </tr>
+            `).join('');
+            
+            document.getElementById('adminTotalUsers').textContent = users.length;
+            document.getElementById('adminJobSeekers').textContent = users.filter(u => u.role === 'job_seeker').length;
+            document.getElementById('adminEmployers').textContent = users.filter(u => u.role === 'employer').length;
+        }
+
+        // Display admin jobs
+        function displayAdminJobs() {
+            const container = document.getElementById('adminJobsList');
+            container.innerHTML = jobs.map(job => `
+                <tr>
+                    <td>${job.title}</td>
+                    <td>${job.company}</td>
+                    <td>${job.location}</td>
+                    <td>${job.employer}</td>
+                    <td>
+                        <button class="btn btn-sm btn-danger" onclick="adminDeleteJob(${job.id})">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
